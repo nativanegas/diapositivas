@@ -34,7 +34,7 @@ library(lubridate)
 ```
 
 ```{r descarga_datos, echo=FALSE, message=FALSE}
-df.ins=read.csv("/Users/Natalia/Desktop/TESIS/2020-2/DOCUMENTOS FINAL TESIS/21dic.csv")
+df.ins=read.csv("/Users/Carlos/Desktop/Ratoncita/Tesis Natalia/21dic.csv")
 df.ins$fecha_inicio_sintomas <- as.Date(df.ins$fecha_inicio_sintomas,tryFormats = c("%d-%m-%Y", "%d/%m/%Y"))
 df.ins$fecha_de_notificaci_n <- as.Date(df.ins$fecha_de_notificaci_n, tryFormats = c("%d-%m-%Y", "%d/%m/%Y"))
 df.ins$fecha_muerte <- as.Date(df.ins$fecha_muerte, tryFormats = c("%d-%m-%Y", "%d/%m/%Y"))
@@ -67,7 +67,7 @@ ts_colombia<- ts(serie.colombia) #Convierte en una serie de tiempo tipo ts la se
 <center>
 <h1>Estimación de la curva y pronóstico del número de infectados por COVID-19 mediante modelos estadísticos en Colombia durante el año 2020</h1>
 <h3>Autora: Natalia Vanegas Torres</h3>
-<h4>Fecha: 01/02/2021</h4>
+<h4>Fecha: 01/03/2021</h4>
 </center>
 ```{r puj, fig.align="center",out.width="250px"}
 include_graphics("puj.jpg")
@@ -80,7 +80,7 @@ include_graphics("puj.jpg")
 
 En este trabajo se muestra la importancia de los modelos estadísticos en la elaboración de pronósticos a corto plazo en enfermedades contagiosas como el COVID-19 en Colombia durante el año 2020.
 
-En primer lugar, se descargaron los datos suministrados por el INS desde el portal datos abiertos Colombia, se realizó una serie de tiempo con la cantidad de confirmados diarios hasta el día 21 de diciembre de 2020 para pronosticar la cantidad de contagios que se presentarían entre el 22 de diciembre y el 31 de diciembre de 2020.
+En primer lugar, se descargaron los datos suministrados por el INS desde el portal datos abiertos Colombia, se realizó una serie de tiempo con la cantidad de confirmados diarios desde el 6 de marzo hasta el día 21 de diciembre de 2020 para pronosticar la cantidad de contagios que se presentarían entre el 22 de diciembre y el 31 de diciembre de 2020.
 
 Se utilizaron los modelos Holt, Holt-Winters, Medias Móviles y ARIMA para realizar este pronóstico, posteriormente se realizó la validación con los errores de Desviación Absoluta de la Media, Error Cuadrático Medio y Raíz del Error Cuadrático Medio con el fin de determinar el mejor modelo para pronosticar la curva de contagios.
 
@@ -96,14 +96,14 @@ include_graphics("covid.jpg")
 <h3>Objetivo General</h3>
 </center>
 <div style="text-align: justify">
-Estimar y pronosticar por medio de métodos estadísticos la curva de propagación del COVID-19 durante el año 2020 en Colombia eligiendo el mejor método que permita pronosticar el número de contagios diarios en Colombia con el fin de brindar una herramienta informativa a los colombianos.
+Estimar y pronosticar por medio de métodos estadísticos la curva de propagación del COVID-19 durante el año 2020 en Colombia eligiendo el mejor método que permita pronosticar el número de contagios diarios con el fin de brindar una herramienta informativa a los colombianos.
 </div>
 
 <center>
 <h3>Objetivos Específicos</h3>
 </center>
 <div style="text-align: justify">
-* Realizar una revisión de las principales metodologías para una generación de pronósticos con el fin de ser utilizados en la construcción de modelos de la serie de tiempo generada por la transmisión del virus COVID-19.
+* Realizar una revisión de las principales metodologías para una generación de pronósticos con el fin de ser utilizados en la construcción de modelos de la serie de tiempo generada por la transmisión del virus Sars-CoV-2.
 * Construir e identificar diferentes modelos de pronóstico con los datos obtenidos a nivel nacional para analizar el comportamiento del COVID-19 en Colombia.
 * Realizar un análisis comparativo de los modelos de pronóstico seleccionados para escoger el que mejor se ajuste a la serie a partir de indicadores estadísticos y representarlos gráficamente.
 * Generar una estrategia de comunicación que permita a los ciudadanos visualizar la cantidad de contagiados, muertos y recuperados por COVID-19 en los departamentos de Colombia durante el año 2020.
@@ -172,7 +172,7 @@ $DAM=\dfrac{1}{n}\displaystyle{\sum_{t=1}^n}|Y_t-\widehat{Y_t}|$
 <h4>Error cuadrático medio (EMC)</h4>
 </center>
 <div style="text-align: justify">
-Este método penaliza los errores mauores de pronóstico puesto que eleva cada error al cuadrado, lo que es útil cuando se requiere una técnica que produzca errores moderados en lugar de errores pequños.
+Este método penaliza los errores mayores de pronóstico puesto que eleva cada error al cuadrado, lo que es útil cuando se requiere una técnica que produzca errores moderados en lugar de errores pequños.
 </div>
 <center>
 $EMC=\dfrac{1}{n} \left(\displaystyle{\sum_{t=1}^{n}}(Y_t - \widehat{Y_t})\right)^2$
@@ -572,7 +572,7 @@ include_graphics("piramide.png")
 <h3> Confirmados diarios COVID-19</h3>
 </center>
 ```{r descarga_datos2, echo=FALSE, message=FALSE}
-df.ins31=read.csv("/Users/Natalia/Desktop/TESIS/2020-2/DOCUMENTOS FINAL TESIS/31dic.csv")
+df.ins31=read.csv("/Users/Carlos/Desktop/Ratoncita/Tesis Natalia/31dic.csv")
 df.ins31$fecha_inicio_sintomas <- as.Date(df.ins31$fecha_inicio_sintomas,tryFormats = c("%d-%m-%Y", "%d/%m/%Y"))
 df.ins31$fecha_de_notificaci_n <- as.Date(df.ins31$fecha_de_notificaci_n, tryFormats = c("%d-%m-%Y", "%d/%m/%Y"))
 df.ins31$fecha_muerte <- as.Date(df.ins31$fecha_muerte, tryFormats = c("%d-%m-%Y", "%d/%m/%Y"))
@@ -706,7 +706,7 @@ predmodHW=predict(modHW,n.ahead=10,prediction.interval = TRUE)
 DAM_HW=  round(sum(abs(ts_colombia[-c(1:2),]-modHW$fitted[,1]))/length(ts_colombia[-c(1:2),]),2)
 RMSE_HW = round(sqrt(sum((modHW$fitted[,1]-ts_colombia[-c(1:2),])^2)/length(ts_colombia[-c(1:2),])),2)
 EMC_HW=round(((sum(ts_colombia[-c(1:2),] - modHW$fitted[,1]))^2)/length(ts_colombia[-c(1:2),]),2)
-hw_pred=read.csv("/Users/Natalia/Desktop/TESIS/2020-2/DOCUMENTOS FINAL TESIS/hw_pred.csv") 
+hw_pred=read.csv("/Users/Carlos/Desktop/Ratoncita/Tesis Natalia/hw_pred.csv") 
 names(hw_pred)=("Contagiados")
 hw_pred=ts(hw_pred)
 ```
@@ -750,7 +750,7 @@ holt_prediccion=data.frame(holt_prediccion)
 DAM_H=round(sum(abs(ts_colombia-modhol$estimate))/length(ts_colombia),2)
 RMSE_H=round(sqrt(sum((modhol$estimate-ts_colombia)^2)/length(ts_colombia)),2)
 EMC_H=round(((sum(ts_colombia - modhol$estimate))^2)/length(ts_colombia),2)
-holt_pred=read.csv("/Users/Natalia/Desktop/TESIS/2020-2/DOCUMENTOS FINAL TESIS/modholt_es.csv") 
+holt_pred=read.csv("/Users/Carlos/Desktop/Ratoncita/Tesis Natalia/modholt_es.csv") 
 names(holt_pred)=("Contagiados")
 holt_pred=ts(holt_pred)
 ```
@@ -784,7 +784,7 @@ pred=predict(mediamov3,level=0.8)
 DAM_MA3=  round(sum(abs(ts_colombia-mediamov3))/length(ts_colombia),2)
 RMSE_MA3 = round(sqrt(sum((mediamov3-ts_colombia)^2)/length(ts_colombia)),2)
 EMC_MA3=round(((sum(ts_colombia - mediamov3))^2)/length(ts_colombia),2)
-pred1=read.csv("/Users/Natalia/Desktop/TESIS/2020-2/DOCUMENTOS FINAL TESIS/predmma.csv") 
+pred1=read.csv("/Users/Carlos/Desktop/Ratoncita/Tesis Natalia/predmma.csv") 
 names(pred1)=("Contagiados")
 pred1=ts(pred1)
 #####################Medias moviles 7#########################################
@@ -898,7 +898,7 @@ forecast1=forecast(arima,level=95)
 DAM_ARI=  round(sum(abs(ts_colombia-forecast1$fitted))/length(ts_colombia),2)
 RMSE_ARI = round(sqrt(sum((forecast1$fitted-ts_colombia)^2)/length(ts_colombia)),2)
 EMC_ARI=round(((sum(ts_colombia - forecast1$fitted))^2)/length(ts_colombia),2)
-arima_pred=read.csv("/Users/Natalia/Desktop/TESIS/2020-2/DOCUMENTOS FINAL TESIS/arima_est.csv") 
+arima_pred=read.csv("/Users/Carlos/Desktop/Ratoncita/Tesis Natalia/arima_est.csv") 
 names(arima_pred)=("Contagiados")
 arima_pred=ts(arima_pred)
 ```
